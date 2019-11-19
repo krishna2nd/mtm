@@ -4,7 +4,7 @@
   "description": "Microsoft Tag manager server",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rimraf dist && tsc ",
+    "build": "tsc && xcopy public dist\\public\\ /s /e /y",
     "test": "yarn run test",
     "start:prod": "pm2 --no-daemon reload pm2.config.js",
     "watch": "nodemon dist/index.js"
