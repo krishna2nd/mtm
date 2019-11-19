@@ -1,9 +1,14 @@
 import * as fs from "fs";
 
-export default class BaseRenderer {
+export interface IRenderer {
+    render(): Buffer;
+}
+export default class BaseRenderer implements IRenderer {
+    protected content: Buffer;
+    constructor() {
+    }
     render(): Buffer {
-        console.log(process.cwd())
-        const content: Buffer = new Buffer(fs.readFileSync("dist/public/jquery.js", { encoding: "utf-8", flag: 'r' }));
-        return content;
+        this.content = new Buffer(fs.readFileSync("dist/public/jquery.js", { encoding: "utf-8", flag: 'r' }));
+        return this.content;
     }
 }

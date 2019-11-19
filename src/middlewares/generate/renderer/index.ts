@@ -1,9 +1,23 @@
 //import MTMTagItem, { ITagItem } from "../../../models/MTMTag";
-import BaseRenderer from "./base";
-export default class MTMRenderer extends BaseRenderer {
+import BaseRenderer, { IRenderer } from "./base";
+import TriggerOnClick from "./triggers/TriggerOnClick";
+import TriggerOnLoad from './triggers/TriggerOnLoad';
+
+export default class MTMRenderer extends BaseRenderer implements IRenderer {
+    constructor() {
+        super();
+        super.render();
+    }
+    private inject(trigger: IRenderer): Buffer {
+       return  this.content = Buffer.concat([this.content, Buffer.from(trigger.render())]);
+    }
     public render(): Buffer {
-        const content: Buffer = super.render();
+        
+        const cTrigger = new TriggerOnClick("test", 'alert("test")');
+        const loadTrigger = new TriggerOnLoad("test", 'alert("test load")');
         //const allTags: Array<ITagItem> = MTMTagItem.getAll();
-        return content;
+        this.inject(cTrigger)
+        this.inject(loadTrigger)
+        return this.content;
     }
 }
