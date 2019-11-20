@@ -18,6 +18,6 @@ export default (app) => {
   app.post(`${URL_BASE}/:id`, async (req, res) => {
     const tag: MTMTagItem = req.body as MTMTagItem;
     tag.id = tag.id || req.query.id;
-    res.json(await mtmTag.create(req.body));
+    res.json(await mtmTag.update(tag));
   });
 };

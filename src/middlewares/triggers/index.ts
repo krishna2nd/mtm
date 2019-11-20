@@ -16,7 +16,7 @@ export default (app) => {
     app.post(`${URL_BASE}/:id`, async (req, res) => {
       const trigger: MTMTriggerItem = req.body as MTMTriggerItem;
       trigger.id = trigger.id || req.query.id;
-      res.json(await mtmTrigger.create(req.body));
+      res.json(await mtmTrigger.update(trigger));
     });
 };
 
