@@ -36,8 +36,10 @@ export class MTMTagItem implements IMTMTagItem {
     public async delete(tag: ITagItem) { return true; }
     public async update(tag: ITagItem) { return tag; }
     static async getAll(): Promise<Array<ITagItem>> {
-        const value: any = await MTMTagItem.store.SelectAll(this.query.SELECT_ALL)
-        return JSON.parse(value.data) as Array<ITagItem>
+        const value: any = await MTMTagItem.store.SelectAll(this.query.SELECT_ALL) || [[]];
+        return value[0].map((ele: any): ITagItem => {
+            return JSON.parse(ele.DATA) as ITagItem
+        })
     }
 
     constructor() {

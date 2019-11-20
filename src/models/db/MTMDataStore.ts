@@ -50,15 +50,15 @@ export default class MTMDataStore {
         return this.Execute('get', selectQuery, ...params);
     }
 
-    public SelectAll(selectQuery: string, ...params: any[]) {
+    public SelectAll(selectQuery: string | QueryStatement, ...params: any[]) {
         return this.Execute('all', selectQuery, ...params);
     }
-    public async Insert(insertQuery: string, ...params: any[]) {
+    public async Insert(insertQuery: string | QueryStatement, ...params: any[]) {
         await this.Execute('run', insertQuery, ...params);
         // OR select seq from sqlite_sequence where name="table_name"
         return await this.Execute('get', `SELECT last_insert_rowid() as ID`);
     }
-    public Delete(deleteQuery: string, ...params: any[]) {
+    public Delete(deleteQuery: string | QueryStatement, ...params: any[]) {
         return this.Execute('run', deleteQuery, ...params);
     }
 
@@ -67,9 +67,11 @@ export default class MTMDataStore {
             const statement: QueryStatement = (typeof query === 'string') ? ParameterizedQuery(query, (err) => {
                 if (err) return reject(err);
             }) : query;
+            console.log(statement, params)
             statement[action](...params, (err, ...data) => {
+                console.log(err, data)
                 if (err) return reject(err)
-                resolve(...data)
+                resolve(data)
             })
             statement.finalize();
         });

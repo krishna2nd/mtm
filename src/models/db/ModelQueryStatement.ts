@@ -16,10 +16,10 @@ export default class  ModelQueryStatement implements IQueryStatement {
     DELETE: QueryStatement;
     constructor (query: IQueryStatement) {
         this.INSERT = ParameterizedQuery(query.INSERT);
-        this.UPDATE = ParameterizedQuery(query.INSERT);
-        this.SELECT = ParameterizedQuery(query.INSERT);
-        this.SELECT_ALL = ParameterizedQuery(query.INSERT);
-        this.DELETE = ParameterizedQuery(query.INSERT);
+        this.UPDATE = ParameterizedQuery(query.UPDATE);
+        this.SELECT = ParameterizedQuery(query.SELECT);
+        this.SELECT_ALL = ParameterizedQuery(query.SELECT_ALL);
+        this.DELETE = ParameterizedQuery(query.DELETE);
     }
 
 }
