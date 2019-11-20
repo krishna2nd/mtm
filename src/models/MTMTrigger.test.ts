@@ -1,29 +1,28 @@
-import MTMTagItem, { ITagItem } from "./MTMTag";
+import MTMTrigger, { ITriggerItem, TriggerType } from "./MTMTrigger";
 
 (async () => {
-    const MTMtag = new MTMTagItem();
+    const MTMtag = new MTMTrigger();
     try {
-        const tag: ITagItem = {
+        const tag: ITriggerItem = {
             name: "test",
-            triggers: ['1', '3'],
             body: 'alert("test)',
             lastEdited: new Date(),
-            type: "click"
+            type: TriggerType.PAGE_LOAD
         };
-        const rt = await MTMtag.create(tag as ITagItem)
+        const rt = await MTMtag.create(tag as ITriggerItem)
         console.log(rt);
         tag.id = rt[0].ID;
         tag.name = "test " + new Date();
-        await MTMtag.update(tag as ITagItem)
+        await MTMtag.update(tag as ITriggerItem)
         
     } catch (err) {
         console.log(err);
     }
     try {
-        const result = await MTMTagItem.getAll();
+        const result = await MTMTrigger.getAll();
         result.forEach(async tag => {
             console.log("Deleting ", tag)
-            await MTMtag.delete(tag as ITagItem);
+            await MTMtag.delete(tag as ITriggerItem);
         })
     } catch (err) {
         console.log(err);

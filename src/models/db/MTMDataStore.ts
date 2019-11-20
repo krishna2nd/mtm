@@ -58,6 +58,9 @@ export default class MTMDataStore {
         // OR select seq from sqlite_sequence where name="table_name"
         return await this.Execute('get', `SELECT last_insert_rowid() as ID`);
     }
+    public async Update(updateQuery: string | QueryStatement, ...params: any[]) {
+        return await this.Execute('run', updateQuery, ...params);
+    }
     public Delete(deleteQuery: string | QueryStatement, ...params: any[]) {
         return this.Execute('run', deleteQuery, ...params);
     }
@@ -72,8 +75,7 @@ export default class MTMDataStore {
                 console.log(err, data)
                 if (err) return reject(err)
                 resolve(data)
-            })
-            statement.finalize();
+            });
         });
     }
     public Close() {
