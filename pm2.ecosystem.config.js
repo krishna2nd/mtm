@@ -12,16 +12,5 @@ module.exports = {
     env_production: {
       NODE_ENV: 'production'
     }
-  }],
-
-  deploy: {
-    production: {
-      user: 'node',
-      host: '0.0.0.0',
-      ref: 'origin/master',
-      repo: 'git@github.com:repo.git',
-      path: '/home/site/wwwroot',
-      'post-deploy': 'yarn start'
-    }
-  }
+  }]
 };
