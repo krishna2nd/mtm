@@ -3,7 +3,7 @@ import ModelQueryStatement, { IQueryStatement } from "./db/ModelQueryStatement";
 
 
 export interface ITagItem {
-    id?: string;
+    id?: string | number;
     name: string;
     type: string;
     triggers: string[];
@@ -19,7 +19,7 @@ export interface IMTMTagItem extends ITagItem {
 };
 
 export class MTMTagItem implements IMTMTagItem {
-    public id?: string;
+    public id?: string | number;
     public name: string;
     public type: string;
     public triggers: string[];
@@ -27,9 +27,10 @@ export class MTMTagItem implements IMTMTagItem {
     public lastEdited: Date;
     static query: ModelQueryStatement;
     static store: MTMDataStore;
-    public async get(id: string): Promise<ITagItem> {
-        const value: any = await MTMTagItem.store.Select(MTMTagItem.query.SELECT, id)
-        return JSON.parse(value.data) as ITagItem;
+    public async get(id: string | number): Promise<ITagItem> {
+        let value: any = await MTMTagItem.store.Select(MTMTagItem.query.SELECT, id)
+        value = value[0] && value[0].DATA || "{}";
+        return JSON.parse(value) as ITagItem;
     }
     public async create(tag: ITagItem) { 
         const value: any = MTMTagItem.store.Insert(MTMTagItem.query.INSERT, JSON.stringify(tag));
@@ -40,8 +41,8 @@ export class MTMTagItem implements IMTMTagItem {
         return await value;
     }
     public async update(tag: ITagItem) {
-        const value: any = MTMTagItem.store.Update(MTMTagItem.query.UPDATE, JSON.stringify(tag), tag.id);
-        return await value; 
+        await MTMTagItem.store.Update(MTMTagItem.query.UPDATE, JSON.stringify(tag), tag.id);
+        return await this.get(tag.id); 
     }
     static async getAll(): Promise<Array<ITagItem>> {
         const value: any = await MTMTagItem.store.SelectAll(this.query.SELECT_ALL) || [[]];

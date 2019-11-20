@@ -19,9 +19,9 @@ export enum TriggerType {
 
 export interface IMTMTriggerItem extends ITriggerItem {
     get(id: string): Promise<ITriggerItem>;
-    create(tag: ITriggerItem): Promise<ITriggerItem>;
-    delete(tag: ITriggerItem): Promise<boolean>;
-    update(tag: ITriggerItem): Promise<ITriggerItem>;
+    create(trigger: ITriggerItem): Promise<ITriggerItem>;
+    delete(trigger: ITriggerItem): Promise<boolean>;
+    update(trigger: ITriggerItem): Promise<ITriggerItem>;
 };
 
 export class MTMTriggerItem implements IMTMTriggerItem {
@@ -33,21 +33,22 @@ export class MTMTriggerItem implements IMTMTriggerItem {
     public lastEdited: Date;
     static query: ModelQueryStatement;
     static store: MTMDataStore;
-    public async get(id: string): Promise<ITriggerItem> {
-        const value: any = await MTMTriggerItem.store.Select(MTMTriggerItem.query.SELECT, id)
-        return JSON.parse(value.data) as ITriggerItem;
+    public async get(id: string| number): Promise<ITriggerItem> {
+        let value: any = await MTMTriggerItem.store.Select(MTMTriggerItem.query.SELECT, id)
+        value = value[0] && value[0].DATA || "{}";
+        return JSON.parse(value) as ITriggerItem;
     }
-    public async create(tag: ITriggerItem) {
-        const value: any = MTMTriggerItem.store.Insert(MTMTriggerItem.query.INSERT, JSON.stringify(tag));
+    public async create(trigger: ITriggerItem) {
+        const value: any = MTMTriggerItem.store.Insert(MTMTriggerItem.query.INSERT, JSON.stringify(trigger));
         return await value;
     }
-    public async delete(tag: ITriggerItem) {
-        const value: any = MTMTriggerItem.store.Delete(MTMTriggerItem.query.DELETE, tag.id);
+    public async delete(trigger: ITriggerItem) {
+        const value: any = MTMTriggerItem.store.Delete(MTMTriggerItem.query.DELETE, trigger.id);
         return await value;
     }
-    public async update(tag: ITriggerItem) {
-        const value: any = MTMTriggerItem.store.Update(MTMTriggerItem.query.UPDATE, JSON.stringify(tag), tag.id);
-        return await value;
+    public async update(trigger: ITriggerItem) {
+        await MTMTriggerItem.store.Update(MTMTriggerItem.query.UPDATE, JSON.stringify(trigger), trigger.id);
+        return await this.get(trigger.id);
     }
     static async getAll(): Promise<Array<ITriggerItem>> {
         const value: any = await MTMTriggerItem.store.SelectAll(this.query.SELECT_ALL) || [[]];
