@@ -15,7 +15,8 @@ export interface ITriggerItem {
 export enum TriggerType {
     CLICK = 'click',
     SELECTED_CLICK = 'selected_click',
-    PAGE_LOAD = 'page_load'
+    PAGE_LOAD = 'page_load',
+    AUTO_EVENT = 'auto_event'
 }
 
 export interface IMTMTriggerItem extends ITriggerItem {
