@@ -11,7 +11,7 @@ export default class TriggerOnLoad implements IRenderer {
     }
     public render (): Buffer {
         return new Buffer(`$(function () {
-            eval('${this.body||''}')
+            ${this.body}
         });`);
     }
 }

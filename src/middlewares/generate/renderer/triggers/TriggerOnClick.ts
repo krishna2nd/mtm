@@ -11,9 +11,10 @@ export default class TriggerOnClick implements IRenderer {
     }
     public render (): Buffer {
         return new Buffer(`$(function () {
-            \$("${this.selector}").on('click', function () {
-            eval('${this.body||''}')
-        })  
-    });`);
+            \$("${this.selector}").on('click', function (event) {
+                event.preventDefault();
+                ${this.body.toString()}
+                })  
+            });`);
     }
 }

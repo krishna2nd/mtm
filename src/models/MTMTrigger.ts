@@ -1,6 +1,7 @@
 
 import MTMDataStore from "./db/MTMDataStore";
 import ModelQueryStatement, { IQueryStatement } from "./db/ModelQueryStatement";
+import MTMTagItem from './MTMTag';
 
 export interface ITriggerItem {
     id?: string | number;
@@ -28,7 +29,8 @@ export class MTMTriggerItem implements IMTMTriggerItem {
     public id?: string;
     public name: string;
     public type: TriggerType;
-    public triggers: string[];
+    public selector?: string;
+    public tags?: MTMTagItem[];
     public body: string;
     public lastEdited: Date;
     static query: ModelQueryStatement;
