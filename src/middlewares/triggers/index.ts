@@ -8,14 +8,14 @@ export default (app) => {
         res.json(await MTMTrigger.getAll())
     });
     app.get(`${URL_BASE}/:id`, async (req, res) => {
-      res.json(await mtmTrigger.get(req.query.id));
+      res.json(await mtmTrigger.get(req.params.id));
     });
     app.put(URL_BASE, async (req, res) => {
       res.json(await mtmTrigger.create(req.body));
     });
     app.post(`${URL_BASE}/:id`, async (req, res) => {
       const trigger: MTMTriggerItem = req.body as MTMTriggerItem;
-      trigger.id = trigger.id || req.query.id;
+      trigger.id = trigger.id || req.params.id || req.query.id;
       res.json(await mtmTrigger.update(trigger));
     });
 };

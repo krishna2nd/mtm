@@ -10,14 +10,15 @@ export default (app) => {
     res.json(result)
   });
   app.get(`${URL_BASE}/:id`, async (req, res) => {
-    res.json(await mtmTag.get(req.query.id));
+    console.log('req.query.id', req.params.id)
+    res.json(await mtmTag.get(req.params.id));
   });
   app.put(URL_BASE, async (req, res) => {
     res.json(await mtmTag.create(req.body));
   });
   app.post(`${URL_BASE}/:id`, async (req, res) => {
     const tag: MTMTagItem = req.body as MTMTagItem;
-    tag.id = tag.id || req.query.id;
+    tag.id = tag.id || req.params.id || req.query.id;
     res.json(await mtmTag.update(tag));
   });
 };

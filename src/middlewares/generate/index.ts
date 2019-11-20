@@ -1,7 +1,7 @@
 
 import MTMRenderer from "./renderer";
 
-const URL_BASE: string = "/script";
+const URL_BASE: string = "/mtm.js";
 
 export default (app) => {
     app.get(URL_BASE, async (req, res) => {
