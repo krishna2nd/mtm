@@ -4,8 +4,8 @@
   "description": "Microsoft Tag manager server",
   "main": "dist/index.js",
   "scripts": {
-    
-    "build": "tsc && xcopy public dist\\public\\ /s /e /y",
+    "build": "tsc && cp -r public dist/",
+    "build:w": "tsc && xcopy public dist\\public\\ /s /e /y",
     "test": "yarn run test",
     "start:prod": "pm2 --no-daemon reload ecosystem.config.js",
     "start": "pm2 --no-daemon reload ecosystem.config.js",
