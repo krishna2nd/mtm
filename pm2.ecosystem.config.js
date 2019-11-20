@@ -20,8 +20,8 @@ module.exports = {
       host: '0.0.0.0',
       ref: 'origin/master',
       repo: 'git@github.com:repo.git',
-      path: '/home/site',
-      'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
+      path: '/home/site/wwwroot',
+      'post-deploy': 'yarn start'
     }
   }
 };
