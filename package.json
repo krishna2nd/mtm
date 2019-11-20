@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && xcopy public dist\\public\\ /s /e /y",
     "test": "yarn run test",
-    "start:prod": "pm2 --no-daemon reload pm2.config.js",
+    "start:prod": "pm2 --no-daemon reload ecosystem.config.js",
+    "start": "pm2 --no-daemon reload ecosystem.config.js",
     "watch": "nodemon dist/index.js"
   },
   "repository": {
