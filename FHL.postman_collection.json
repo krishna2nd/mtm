@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "d2de79c9-2686-4964-ab1f-10530525e95c",
+		"name": "FHL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createTrigger",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/text+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"type\": \"click\",\r\n        \"name\": \"bodyC00lick\"\r\n    }"
+				},
+				"url": {
+					"raw": "localhost:9090/triggers",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"triggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PageLoad",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"PageLoad\",\r\n        \"body\": \" $(document.body).append($('<br/><i>pageLoad <i>' ))\",\r\n        \"triggers\": [\r\n            \"4\"\r\n        ],\r\n        \"id\": 39\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/tags/39",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"tags",
+						"39"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTags",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n    {\r\n        \"name\": \"selectedClick\",\r\n        \"body\": \"alert(\\\"test SelectedClick\\\")\",\r\n        \"triggers\": [\r\n            \"5\"\r\n        ]\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GernerateScript",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/mtm.js",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"mtm.js"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTriggers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/triggers",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"triggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/tags/39",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"tags",
+						"39"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTrigger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/triggers",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"triggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteTrigger",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/triggers/6",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"triggers",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

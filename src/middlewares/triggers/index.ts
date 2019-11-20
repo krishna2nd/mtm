@@ -18,5 +18,9 @@ export default (app) => {
       trigger.id = trigger.id || req.params.id || req.query.id;
       res.json(await mtmTrigger.update(trigger));
     });
+    app.delete(`${URL_BASE}/:id`, async (req, res) => {
+      const trigger: MTMTriggerItem = req.body as MTMTriggerItem;
+      trigger.id = trigger.id || req.params.id || req.query.id;
+      res.json(await mtmTrigger.delete(trigger));
+    });
 };
-
