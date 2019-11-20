@@ -15,4 +15,4 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 middleware(app);
 app.get('/', serveStatic('dist/public'));
  
-app.listen(9090)
+app.listen(process.env.PORT || 9090)
