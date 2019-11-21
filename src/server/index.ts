@@ -22,7 +22,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }))
 middleware(app);
-app.get('/', serveStatic('dist/public'));
+app.get('/*', serveStatic('dist/public'));
  
 
 
