@@ -7,10 +7,14 @@ module.exports = {
     autorestart: true,
     max_memory_restart: '1G',
     env: {
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      PORT: "9090",
+      SPORT: "8443"
     },
     env_production: {
-      NODE_ENV: 'production'
+      NODE_ENV: 'production',
+      PORT: "9090",
+      SPORT: "8443"
     }
   }]
 };

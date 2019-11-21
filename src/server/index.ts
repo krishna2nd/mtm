@@ -1,8 +1,12 @@
 import middleware from "../middlewares";
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
 var morgan = require("morgan");
 var cors = require("cors");
-
 var express = require('express')
+
+
 var app = express()
 
 var bodyParser = require('body-parser')
@@ -20,4 +24,15 @@ app.use(cors({
 middleware(app);
 app.get('/', serveStatic('dist/public'));
  
-app.listen(process.env.PORT || 9090)
+
+
+var privateKey  = fs.readFileSync('cert/server.key', 'utf8');
+var certificate = fs.readFileSync('cert/server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(process.env.PORT || 80);
+httpsServer.listen(process.env.SPORT || 443);
