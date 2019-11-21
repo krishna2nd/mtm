@@ -1,0 +1,1 @@
+{"version":3,"file":"TriggerOnClick.d.ts","sourceRoot":"","sources":["../../../../../src/middlewares/generate/templates/triggers/TriggerOnClick.ts"],"names":[],"mappings":";AAAA,MAAM,CAAC,OAAO,OAAO,cAAc;IACxB,EAAE,EAAE,MAAM,CAAC;IACX,QAAQ,EAAE,MAAM,CAAC;IACjB,IAAI,EAAE,MAAM,CAAC;gBACR,EAAE,EAAE,MAAM,EAAE,IAAI,EAAE,MAAM,EAAE,QAAQ,GAAE,MAAa;IAKtD,MAAM,IAAK,MAAM;CAO3B"}

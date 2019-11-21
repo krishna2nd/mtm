@@ -1,0 +1,1 @@
+//# sourceMappingURL=onClick.d.ts.map
