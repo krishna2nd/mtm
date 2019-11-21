@@ -11,6 +11,7 @@ export default class TriggerOnLoad implements IRenderer {
     }
     public render (): Buffer {
         return new Buffer(`$(function () {
+            mtm.log("${this.id}", window.dataLayer)
             ${this.body}
         });`);
     }

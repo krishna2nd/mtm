@@ -1,4 +1,4 @@
-import { ParameterizedQuery, QueryStatement } from "./MTMDataStore";
+import { QueryStatement } from "./MTMDataStore";
 
 export interface IQueryStatement {
     INSERT: QueryStatement;
@@ -16,11 +16,11 @@ export default class  ModelQueryStatement implements IQueryStatement {
     DELETE: QueryStatement;
     constructor (table: string, query: IQueryStatement) {
         const tablePlaceholder = '{TABLE}';
-        this.INSERT = ParameterizedQuery(query.INSERT.replace(tablePlaceholder, table));
-        this.UPDATE = ParameterizedQuery(query.UPDATE.replace(tablePlaceholder, table));
-        this.SELECT = ParameterizedQuery(query.SELECT.replace(tablePlaceholder, table));
-        this.SELECT_ALL = ParameterizedQuery(query.SELECT_ALL.replace(tablePlaceholder, table));
-        this.DELETE = ParameterizedQuery(query.DELETE.replace(tablePlaceholder, table));
+        this.INSERT = (query.INSERT.replace(tablePlaceholder, table));
+        this.UPDATE = (query.UPDATE.replace(tablePlaceholder, table));
+        this.SELECT = (query.SELECT.replace(tablePlaceholder, table));
+        this.SELECT_ALL = (query.SELECT_ALL.replace(tablePlaceholder, table));
+        this.DELETE = (query.DELETE.replace(tablePlaceholder, table));
     }
 
 }

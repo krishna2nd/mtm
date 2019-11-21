@@ -2,6 +2,7 @@
 import BaseRenderer, { IRenderer, IRendererSync } from "./base";
 import TriggerOnClick from "./triggers/TriggerOnClick";
 import TriggerOnLoad from './triggers/TriggerOnLoad';
+import TriggerOnEvent from './triggers/TriggerOnEvent';
 import MTMTag, { MTMTagItem } from "../../../models/MTMTag";
 import MTMTrigger, { MTMTriggerItem, TriggerType } from "../../../models/MTMTrigger";
 
@@ -25,6 +26,11 @@ export default class MTMRenderer extends BaseRenderer implements IRenderer {
                 trigger.tags.forEach((tag: MTMTagItem) => {
                     this.inject(new TriggerOnLoad(`${trigger.name} + ${tag.name}`, tag.body))
                 });
+            } else if (trigger.type === TriggerType.CUSTOM_EVENT) {
+                trigger.tags.forEach((tag: MTMTagItem) => {
+                    console.log("TriggerType.CUSTOM_EVENT######")
+                    this.inject(new TriggerOnEvent(`${trigger.name}`, trigger.body, tag.body))
+                });
             }
         })
         return this.content;
@@ -33,12 +39,14 @@ export default class MTMRenderer extends BaseRenderer implements IRenderer {
         const tags = await MTMTag.getAll();
         const triggers: any = await MTMTrigger.getAll();
         const triggersMap: any = {};
-        triggers.forEach(trigger => triggersMap[trigger.id] = trigger)
+        triggers.forEach(trigger => {
+            trigger.tags = [];
+            triggersMap[trigger.id] = trigger;
+        })
         tags.forEach(tag => {
             tag.triggers.forEach(id => {
                 const trigger = triggersMap[id];
                 if (!trigger) return;
-                if (!trigger.tags) trigger.tags = [];
                 trigger.tags.push(tag);
             })
         });

@@ -14,6 +14,7 @@ export default class TriggerOnClick implements IRenderer {
         return new Buffer(this.selector === DEFAULT_SELECTOR ? `$(function () {
             var ele = \$("${this.selector}");
              ele.on('click', function (event) {
+                mtm.log("${this.id}", event)
                 event.preventDefault();
                 if ($(event.currentTarget).attr('mtm.event')) return;
                 ${this.body.toString()}
@@ -22,6 +23,7 @@ export default class TriggerOnClick implements IRenderer {
             var ele = \$("${this.selector}");
              ele.attr('mtm.event', true);
              ele.on('click', function (event) {
+                mtm.log("${this.id}", event)
                 event.preventDefault();
                 ${this.body.toString()}
                 })  

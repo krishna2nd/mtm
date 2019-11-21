@@ -32,13 +32,14 @@ export class MTMVariableItem implements IMTMVariableItem {
     public lastEdited: Date = new Date();
     static query: ModelQueryStatement;
     static store: MTMDataStore;
+    private table: string = "VARIABLES";
     public async get(id: string| number): Promise<IVariableItem> {
         let value: any = await MTMVariableItem.store.Select(MTMVariableItem.query.SELECT, id)
         value = value[0] && value[0].DATA || "{}";
         return JSON.parse(value) as IVariableItem;
     }
     public async create(variable: IVariableItem) {
-        const value: any = MTMVariableItem.store.Insert(MTMVariableItem.query.INSERT, JSON.stringify(variable));
+        const value: any = MTMVariableItem.store.Insert(MTMVariableItem.query.INSERT, this.table, JSON.stringify(variable));
         return await value;
     }
     public async delete(variable: IVariableItem) {
@@ -60,7 +61,7 @@ export class MTMVariableItem implements IMTMVariableItem {
     }
 
     constructor() {
-        MTMVariableItem.query = new ModelQueryStatement('VARIABLES', {
+        MTMVariableItem.query = new ModelQueryStatement(this.table, {
             SELECT: "SELECT * FROM {TABLE} WHERE ID=?",
             SELECT_ALL: "SELECT * FROM {TABLE}",
             INSERT: `INSERT INTO {TABLE} ("DATA") VALUES (?)`,

@@ -16,7 +16,7 @@ export enum TriggerType {
     CLICK = 'click',
     SELECTED_CLICK = 'selected_click',
     PAGE_LOAD = 'page_load',
-    AUTO_EVENT = 'auto_event'
+    CUSTOM_EVENT = 'custom_event'
 }
 
 export interface IMTMTriggerItem extends ITriggerItem {
@@ -36,13 +36,14 @@ export class MTMTriggerItem implements IMTMTriggerItem {
     public lastEdited: Date;
     static query: ModelQueryStatement;
     static store: MTMDataStore;
+    private table: string = 'TRIGGERS';
     public async get(id: string| number): Promise<ITriggerItem> {
         let value: any = await MTMTriggerItem.store.Select(MTMTriggerItem.query.SELECT, id)
         value = value[0] && value[0].DATA || "{}";
         return JSON.parse(value) as ITriggerItem;
     }
     public async create(trigger: ITriggerItem) {
-        const value: any = MTMTriggerItem.store.Insert(MTMTriggerItem.query.INSERT, JSON.stringify(trigger));
+        const value: any = MTMTriggerItem.store.Insert(MTMTriggerItem.query.INSERT, this.table, JSON.stringify(trigger));
         return await value;
     }
     public async delete(trigger: ITriggerItem) {
@@ -64,7 +65,7 @@ export class MTMTriggerItem implements IMTMTriggerItem {
     }
 
     constructor() {
-        MTMTriggerItem.query = new ModelQueryStatement('TRIGGERS', {
+        MTMTriggerItem.query = new ModelQueryStatement(this.table, {
             SELECT: "SELECT * FROM {TABLE} WHERE ID=?",
             SELECT_ALL: "SELECT * FROM {TABLE}",
             INSERT: `INSERT INTO {TABLE} ("DATA") VALUES (?)`,

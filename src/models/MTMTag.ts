@@ -27,13 +27,14 @@ export class MTMTagItem implements IMTMTagItem {
     public lastEdited: Date;
     static query: ModelQueryStatement;
     static store: MTMDataStore;
+    private table: string = 'TAGS';
     public async get(id: string | number): Promise<ITagItem> {
         let value: any = await MTMTagItem.store.Select(MTMTagItem.query.SELECT, id)
         value = value[0] && value[0].DATA || "{}";
         return JSON.parse(value) as ITagItem;
     }
     public async create(tag: ITagItem) { 
-        const value: any = MTMTagItem.store.Insert(MTMTagItem.query.INSERT, JSON.stringify(tag));
+        const value: any = MTMTagItem.store.Insert(MTMTagItem.query.INSERT, this.table, JSON.stringify(tag));
         return await value;
      }
     public async delete(tag: ITagItem) { 
@@ -55,7 +56,7 @@ export class MTMTagItem implements IMTMTagItem {
     }
 
     constructor() {
-        MTMTagItem.query = new ModelQueryStatement('TAGS', {
+        MTMTagItem.query = new ModelQueryStatement(this.table, {
             SELECT: "SELECT * FROM {TABLE} WHERE ID=?",
             SELECT_ALL: "SELECT * FROM {TABLE}",
             INSERT: `INSERT INTO {TABLE} ("DATA") VALUES (?)`,
