@@ -87,7 +87,7 @@ export default class MTMDataStore {
                 if (err) return reject(err)
                 resolve(data);
                 statement.finalize();
-                
+                this.Close();
             });
         });
     }
