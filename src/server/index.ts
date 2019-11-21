@@ -1,5 +1,6 @@
 import middleware from "../middlewares";
 var morgan = require("morgan");
+var cors = require("cors");
 
 var express = require('express')
 var app = express()
@@ -12,6 +13,10 @@ app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
 app.use(bodyParser.text({ type: 'text/html' }))
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'))
+app.use(cors({
+    origin: '*',
+  optionsSuccessStatus: 200
+}))
 middleware(app);
 app.get('/', serveStatic('dist/public'));
  
