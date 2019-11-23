@@ -5,7 +5,7 @@ window.dataLayer = new DataLayer() || window.dataLayer;
 function DataLayer() {
     this.dataLayer = [];
     this.push = function (value) {
-        this.dataLayer.push(value);
+        this.dataLayer.unshift(value);
         if (value && value.event) {
             window.dispatchEvent(new Event(value.event, value));
         }
@@ -25,7 +25,7 @@ function addStyleSheet(css) {
 }
 function MTMManager() {
     this.logger = $("<div class='logger'  contenteditable=true ></div>");  
-    this.dataLayer = $("<div class='data' contenteditable=true ></div>");   
+    this.dataLayer = $("<textarea class='data' contenteditable=true ></textarea>");   
     this.setupLogger = function () {
         addStyleSheet( '#mtm { display: flex; ' +
            ' position: fixed;z-index: 10000;' +
@@ -40,7 +40,7 @@ function MTMManager() {
     };
     this.log = function (value) {
         this.logger.prepend($("<div class='log'>" + new Date() + ": " + value+"</div>"));
-        this.dataLayer.text(JSON.stringify(window.dataLayer, 4, null))
+        this.dataLayer.text(JSON.stringify(window.dataLayer, null, 4))
     }
     this.setupLogger();
 }

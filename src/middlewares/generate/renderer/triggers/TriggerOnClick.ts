@@ -1,6 +1,6 @@
 import { IRenderer } from "../base";
 
-const DEFAULT_SELECTOR = 'body, body *';
+const DEFAULT_SELECTOR = 'body';
 export default class TriggerOnClick implements IRenderer {
     public id: string;
     public selector: string;

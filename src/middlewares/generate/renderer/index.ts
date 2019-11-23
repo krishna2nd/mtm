@@ -22,7 +22,7 @@ export default class MTMRenderer extends BaseRenderer implements IRenderer {
         triggers.forEach((trigger: MTMTriggerItem) => {
             if (trigger.type === TriggerType.CLICK || trigger.type === TriggerType.SELECTED_CLICK) {
                 trigger.tags.forEach((tag: MTMTagItem) => {
-                    this.inject(new TriggerOnClick(`${trigger.name} + ${tag.name}`, this.Interpolate(variables, tag.body), trigger.selector))
+                    this.inject(new TriggerOnClick(`${trigger.name} + ${tag.name}`, this.Interpolate(variables, tag.body), trigger.selector || trigger.body))
                 });
             } else if (trigger.type === TriggerType.PAGE_LOAD) {
                 trigger.tags.forEach((tag: MTMTagItem) => {
